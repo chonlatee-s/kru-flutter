@@ -43,7 +43,7 @@ class LandingPage extends StatelessWidget {
                   'ร่วมสร้างสังคมแห่งการแบ่งปัน',
                   style: TextStyle(
                       fontFamily: 'Kanit',
-                      fontSize: 21,
+                      fontSize: 18,
                       fontWeight: FontWeight.w300,
                       color: Color.fromRGBO(255, 255, 255, 1)),
                 ),
@@ -68,7 +68,7 @@ class LandingPage extends StatelessWidget {
                   'กำลังดาวน์โหลดข้อมูล',
                   style: TextStyle(
                       fontFamily: 'Kanit',
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w300,
                       color: Color.fromRGBO(255, 255, 255, 1)),
                 ),

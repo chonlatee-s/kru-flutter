@@ -1,0 +1,19 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:kru/pages/about_us_page.dart';
+import 'package:kru/pages/home_page.dart';
+
+final GoRouter router = GoRouter(routes: [
+  GoRoute(
+    path: '/',
+    builder: (BuildContext context, GoRouterState state) {
+      return const HomePage();
+    },
+  ),
+  GoRoute(
+    path: '/aboutUs',
+    builder: (BuildContext context, GoRouterState state) {
+      return const AboutUsPage();
+    },
+  ),
+]);

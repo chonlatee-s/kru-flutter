@@ -37,34 +37,10 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
-        // flexibleSpace: Container(
-        //   decoration: const BoxDecoration(
-        //     gradient: LinearGradient(
-        //       begin: Alignment.topRight,
-        //       end: Alignment.bottomRight,
-        //       colors: [
-        //         Color.fromARGB(255, 49, 162, 253),
-        //         Color.fromARGB(255, 49, 162, 253)
-        //       ],
-        //     ),
-        //   ),
-        // ),
       ),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(20),
-          decoration: const BoxDecoration(
-              // gradient: LinearGradient(
-              //   begin: Alignment.topRight,
-              //   end: Alignment.bottomRight,
-              //   colors: [
-              //     Color.fromARGB(255, 49, 162, 253),
-              //     Color.fromARGB(255, 255, 255, 255),
-              //     Color.fromARGB(255, 255, 255, 255),
-              //     Color.fromARGB(255, 255, 255, 255)
-              //   ],
-              // ),
-              ),
           child: Column(
             children: [
               Column(
@@ -122,7 +98,7 @@ class HomePage extends StatelessWidget {
                         'สวัสดี, คู่หู',
                         style: TextStyle(
                           fontFamily: 'Kanit',
-                          fontSize: 32,
+                          fontSize: 30,
                           fontWeight: FontWeight.w400,
                           color: Color.fromRGBO(41, 41, 41, 1),
                         ),
@@ -131,7 +107,7 @@ class HomePage extends StatelessWidget {
                         'วันนี้เป็นอย่างไรบ้าง ?',
                         style: TextStyle(
                           fontFamily: 'Kanit',
-                          fontSize: 27,
+                          fontSize: 26,
                           fontWeight: FontWeight.w300,
                           color: Color.fromRGBO(41, 41, 41, 1),
                         ),
@@ -178,6 +154,29 @@ class HomePage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          InkWell(
+                            onTap: () {
+                              context.push('/predict');
+                            },
+                            child: const Column(
+                              children: [
+                                Icon(
+                                  Icons.favorite,
+                                  color: Color.fromRGBO(183, 153, 108, 1),
+                                  size: 35,
+                                ),
+                                Text(
+                                  'เสี่ยงเซียมซี',
+                                  style: TextStyle(
+                                    fontFamily: 'Kanit',
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w300,
+                                    color: Color.fromRGBO(41, 41, 41, 1),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           const Column(
                             children: [
                               Icon(
@@ -204,25 +203,7 @@ class HomePage extends StatelessWidget {
                                 size: 35,
                               ),
                               Text(
-                                'เกณฑ์สอบ',
-                                style: TextStyle(
-                                  fontFamily: 'Kanit',
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w300,
-                                  color: Color.fromRGBO(41, 41, 41, 1),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Column(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: Color.fromRGBO(183, 153, 108, 1),
-                                size: 35,
-                              ),
-                              Text(
-                                'เสี่ยงดวง',
+                                'เกฑณ์สอบ',
                                 style: TextStyle(
                                   fontFamily: 'Kanit',
                                   fontSize: 12,

@@ -21,13 +21,13 @@ class PayPage extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
+              padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
                     'assets/img/qr.png',
-                    width: 150,
+                    width: 170,
                   ),
                   SelectableText(
                     '0827818941',
@@ -84,7 +84,7 @@ class PayPage extends StatelessWidget {
                     ],
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 50),
+                    padding: EdgeInsets.only(top: 10, bottom: 40),
                     child: Column(
                       children: [
                         Text(
@@ -131,7 +131,7 @@ class PayPage extends StatelessWidget {
                     'ขอบคุณที่คอยดูแลเรานะ',
                     style: TextStyle(
                       fontFamily: 'Kanit',
-                      fontSize: 34,
+                      fontSize: 31,
                       fontWeight: FontWeight.w200,
                       color: Color.fromRGBO(255, 255, 255, 1),
                     ),

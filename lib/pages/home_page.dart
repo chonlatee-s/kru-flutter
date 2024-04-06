@@ -240,28 +240,33 @@ class HomePage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 20),
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.coffee,
-                                color: Color.fromRGBO(183, 153, 108, 1),
-                                size: 35,
-                              ),
-                              Text(
-                                'เลี้ยงชาไข่มุก',
-                                style: TextStyle(
-                                  fontFamily: 'Kanit',
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w300,
-                                  color: Color.fromRGBO(41, 41, 41, 1),
+                        InkWell(
+                          onTap: () {
+                            context.push('/pay');
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.only(bottom: 20),
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.coffee,
+                                  color: Color.fromRGBO(183, 153, 108, 1),
+                                  size: 35,
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  'เลี้ยงชาไข่มุก',
+                                  style: TextStyle(
+                                    fontFamily: 'Kanit',
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w300,
+                                    color: Color.fromRGBO(41, 41, 41, 1),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],

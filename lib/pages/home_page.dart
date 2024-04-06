@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
               Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 20, bottom: 40),
+                    padding: const EdgeInsets.only(top: 20, bottom: 30),
                     child: Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
@@ -98,7 +98,7 @@ class HomePage extends StatelessWidget {
                         'สวัสดี, คู่หู',
                         style: TextStyle(
                           fontFamily: 'Kanit',
-                          fontSize: 30,
+                          fontSize: 27,
                           fontWeight: FontWeight.w400,
                           color: Color.fromRGBO(41, 41, 41, 1),
                         ),
@@ -107,7 +107,7 @@ class HomePage extends StatelessWidget {
                         'วันนี้เป็นอย่างไรบ้าง ?',
                         style: TextStyle(
                           fontFamily: 'Kanit',
-                          fontSize: 26,
+                          fontSize: 24,
                           fontWeight: FontWeight.w300,
                           color: Color.fromRGBO(41, 41, 41, 1),
                         ),
@@ -124,7 +124,7 @@ class HomePage extends StatelessWidget {
                       'รายการ',
                       style: TextStyle(
                         fontFamily: 'Kanit',
-                        fontSize: 21,
+                        fontSize: 19,
                         fontWeight: FontWeight.w500,
                         color: Color.fromRGBO(41, 41, 41, 1),
                       ),
@@ -280,6 +280,7 @@ class HomePage extends StatelessWidget {
         child: const Icon(
           Icons.edit_note,
           size: 40,
+          color: Color.fromRGBO(138, 99, 0, 1),
         ),
       ),
       bottomNavigationBar: SizedBox(

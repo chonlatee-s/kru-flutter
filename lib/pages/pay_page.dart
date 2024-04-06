@@ -103,18 +103,18 @@ class PayPage extends StatelessWidget {
               ),
             ),
             Container(
-              height: 145,
+              height: 120,
               width: double.infinity,
               padding: const EdgeInsets.only(
-                top: 30,
+                top: 20,
                 left: 20,
                 right: 20,
                 bottom: 10,
               ),
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(25.0),
-                  topLeft: Radius.circular(25.0),
+                  topRight: Radius.circular(0.0),
+                  topLeft: Radius.circular(0.0),
                 ),
                 gradient: LinearGradient(
                   begin: Alignment.topRight,

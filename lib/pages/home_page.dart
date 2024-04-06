@@ -195,23 +195,28 @@ class HomePage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const Column(
-                            children: [
-                              Icon(
-                                Icons.abc,
-                                color: Color.fromRGBO(183, 153, 108, 1),
-                                size: 35,
-                              ),
-                              Text(
-                                'เกฑณ์สอบ',
-                                style: TextStyle(
-                                  fontFamily: 'Kanit',
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w300,
-                                  color: Color.fromRGBO(41, 41, 41, 1),
+                          InkWell(
+                            onTap: () {
+                              context.push('/agenda');
+                            },
+                            child: const Column(
+                              children: [
+                                Icon(
+                                  Icons.category,
+                                  color: Color.fromRGBO(183, 153, 108, 1),
+                                  size: 35,
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  'เกฑณ์สอบ',
+                                  style: TextStyle(
+                                    fontFamily: 'Kanit',
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w300,
+                                    color: Color.fromRGBO(41, 41, 41, 1),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           InkWell(
                             onTap: () => launchUrl(

@@ -37,18 +37,6 @@ class AboutUsPage extends StatelessWidget {
             ],
           ),
         ),
-        // flexibleSpace: Container(
-        //   decoration: const BoxDecoration(
-        //     gradient: LinearGradient(
-        //       begin: Alignment.topRight,
-        //       end: Alignment.bottomRight,
-        //       colors: [
-        //         Color.fromARGB(255, 49, 162, 253),
-        //         Color.fromARGB(255, 49, 162, 253)
-        //       ],
-        //     ),
-        //   ),
-        // ),
       ),
       body: CustomScrollView(
         slivers: <Widget>[

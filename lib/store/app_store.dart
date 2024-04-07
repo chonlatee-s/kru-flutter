@@ -13,6 +13,11 @@ final predictResultChanged = ChangeNotifier();
 var guidelines = [];
 final guidelinesChanged = ChangeNotifier();
 
+// getTesting
+var testings = [];
+final testingsChanged = ChangeNotifier();
+
+// เซียมซี
 void getPredict() async {
   Random random = Random();
   int randomNumber = random.nextInt(28) + 1;
@@ -29,6 +34,7 @@ void getPredict() async {
   predictResultChanged.notifyListeners();
 }
 
+// แนวข้อสอบ
 void getGuideline() async {
   final result = await http.get(
     Uri.parse('https://xn--42cm7czac0a7jb0li.com/getGuideline.php'),
@@ -38,4 +44,30 @@ void getGuideline() async {
   guidelines.clear();
   guidelines.addAll(json);
   guidelinesChanged.notifyListeners();
+}
+
+// ข้อสอบ
+void getTesting() async {
+  final result = await http.get(
+    Uri.parse('https://xn--42cm7czac0a7jb0li.com/getExamApp.php'),
+  );
+
+  final json = jsonDecode(result.body);
+  testings.clear();
+  // testings.addAll(json);
+  for (int i = 0; i < json.length; i++) {
+    testings.add(
+      {
+        'topic': i,
+        'question': json[i]['question'],
+        'ch1': json[i]['ch1'],
+        'ch2': json[i]['ch2'],
+        'ch3': json[i]['ch3'],
+        'ch4': json[i]['ch4'],
+        'ref': json[i]['ref'],
+        'answer': '0',
+      },
+    );
+  }
+  testingsChanged.notifyListeners();
 }

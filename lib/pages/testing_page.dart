@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kru/store/app_store.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'dart:async';
 
 class TestingPage extends StatefulWidget {
   const TestingPage({super.key});
@@ -16,6 +17,8 @@ class _TestingPageState extends State<TestingPage> {
   final indexChanged = ChangeNotifier();
   bool isVisibleSentAnswer = false;
   var _progress = 0.0;
+  var timeCount = '10.00 น.';
+  final timeCountChanged = ChangeNotifier();
 
   @override
   void setState(fn) {
@@ -28,6 +31,7 @@ class _TestingPageState extends State<TestingPage> {
   void initState() {
     super.initState();
     getTesting();
+    getTime();
   }
 
   @override
@@ -46,7 +50,8 @@ class _TestingPageState extends State<TestingPage> {
       ),
       body: SingleChildScrollView(
         child: ListenableBuilder(
-            listenable: Listenable.merge([testingsChanged, indexChanged]),
+            listenable: Listenable.merge(
+                [testingsChanged, indexChanged, timeCountChanged]),
             builder: (BuildContext context, Widget? child) {
               return Container(
                 width: double.infinity,
@@ -110,9 +115,9 @@ class _TestingPageState extends State<TestingPage> {
                                 color: Color.fromARGB(255, 21, 84, 161),
                               ),
                             ),
-                            const Text(
-                              '1 : 53 น.',
-                              style: TextStyle(
+                            Text(
+                              timeCount,
+                              style: const TextStyle(
                                 fontFamily: 'Kanit',
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
@@ -522,4 +527,30 @@ class _TestingPageState extends State<TestingPage> {
     if (check == 0) isVisibleSentAnswer = true;
     _progress = progress;
   }
+
+  getTime() {
+    const duration = Duration(minutes: 1); // กำหนดระยะเวลา 10 นาที
+    int countdown = duration.inSeconds; // นับถอยหลังในหน่วยวินาที
+
+    // เริ่มตัวนับเวลา
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      if (countdown == 0) {
+        timer.cancel(); // หยุดตัวนับเวลาเมื่อนับถอยหลังเสร็จสิ้น
+        // print('เวลาหมดแล้ว!');
+        timeCount = 'หมดเวลา';
+        timeCountChanged.notifyListeners();
+        checkAnswer();
+      } else {
+        int minutes = countdown ~/ 60; // หานาที
+        int seconds = countdown % 60; // หาวินาทีที่เหลือ
+        // print('$minutes:${seconds.toString().padLeft(2, '0')}');
+        timeCount = '$minutes:${seconds.toString().padLeft(2, '0')} น.';
+        timeCountChanged.notifyListeners();
+        countdown--;
+      }
+    });
+    // print('เริ่มตัวนับเวลา...');
+  }
+
+  void checkAnswer() {}
 }

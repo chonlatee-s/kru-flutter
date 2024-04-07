@@ -65,7 +65,8 @@ void getTesting() async {
         'ch3': json[i]['ch3'],
         'ch4': json[i]['ch4'],
         'ref': json[i]['ref'],
-        'answer': '0',
+        'answer': json[i]['answer'],
+        'answer_user': '0',
       },
     );
   }

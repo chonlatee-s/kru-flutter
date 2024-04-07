@@ -14,6 +14,8 @@ class _TestingPageState extends State<TestingPage> {
   bool isVisibleNext = true;
   bool isVisiblePrev = false;
   final indexChanged = ChangeNotifier();
+  bool isVisibleSentAnswer = false;
+  var _progress = 0.0;
 
   @override
   void setState(fn) {
@@ -127,11 +129,9 @@ class _TestingPageState extends State<TestingPage> {
                         child: Row(
                           children: [
                             LinearPercentIndicator(
-                              animation: true,
-                              animationDuration: 1000,
                               width: MediaQuery.of(context).size.width - 30,
                               lineHeight: 8.0,
-                              percent: 0.5,
+                              percent: _progress,
                               backgroundColor:
                                   const Color.fromARGB(255, 180, 180, 180),
                               progressColor:
@@ -189,12 +189,21 @@ class _TestingPageState extends State<TestingPage> {
                                 padding: const EdgeInsets.only(
                                     left: 10, top: 10, bottom: 10, right: 5),
                                 decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 250, 248, 248),
+                                  color: (testings.isNotEmpty &&
+                                          testings[_index]['answer_user'] ==
+                                              '1')
+                                      ? const Color.fromARGB(255, 22, 143, 96)
+                                      : const Color.fromARGB(
+                                          255, 250, 248, 248),
                                   borderRadius: BorderRadius.circular(9),
                                   border: Border.all(
-                                    color: const Color.fromARGB(
-                                        255, 222, 222, 222),
+                                    color: (testings.isNotEmpty &&
+                                            testings[_index]['answer_user'] ==
+                                                '1')
+                                        ? const Color.fromARGB(
+                                            255, 71, 161, 128)
+                                        : const Color.fromARGB(
+                                            255, 222, 222, 222),
                                   ),
                                   boxShadow: const <BoxShadow>[
                                     BoxShadow(
@@ -208,11 +217,15 @@ class _TestingPageState extends State<TestingPage> {
                                   testings.isEmpty
                                       ? '?'
                                       : 'ก. ${testings[_index]['ch1']}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Kanit',
                                     fontSize: 14,
                                     fontWeight: FontWeight.w300,
-                                    color: Color.fromRGBO(41, 41, 41, 1),
+                                    color: (testings.isNotEmpty &&
+                                            testings[_index]['answer_user'] ==
+                                                '1')
+                                        ? const Color.fromRGBO(255, 255, 255, 1)
+                                        : const Color.fromRGBO(41, 41, 41, 1),
                                   ),
                                 ),
                               ),
@@ -232,11 +245,21 @@ class _TestingPageState extends State<TestingPage> {
                                 padding: const EdgeInsets.only(
                                     left: 10, top: 10, bottom: 10, right: 5),
                                 decoration: BoxDecoration(
-                                  color: const Color.fromARGB(255, 22, 143, 96),
+                                  color: (testings.isNotEmpty &&
+                                          testings[_index]['answer_user'] ==
+                                              '2')
+                                      ? const Color.fromARGB(255, 22, 143, 96)
+                                      : const Color.fromARGB(
+                                          255, 250, 248, 248),
                                   borderRadius: BorderRadius.circular(9),
                                   border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 71, 161, 128),
+                                    color: (testings.isNotEmpty &&
+                                            testings[_index]['answer_user'] ==
+                                                '2')
+                                        ? const Color.fromARGB(
+                                            255, 71, 161, 128)
+                                        : const Color.fromARGB(
+                                            255, 222, 222, 222),
                                   ),
                                   boxShadow: const <BoxShadow>[
                                     BoxShadow(
@@ -250,11 +273,15 @@ class _TestingPageState extends State<TestingPage> {
                                   testings.isEmpty
                                       ? '?'
                                       : 'ข. ${testings[_index]['ch2']}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Kanit',
                                     fontSize: 14,
                                     fontWeight: FontWeight.w300,
-                                    color: Color.fromRGBO(255, 255, 255, 1),
+                                    color: (testings.isNotEmpty &&
+                                            testings[_index]['answer_user'] ==
+                                                '2')
+                                        ? const Color.fromRGBO(255, 255, 255, 1)
+                                        : const Color.fromRGBO(41, 41, 41, 1),
                                   ),
                                 ),
                               ),
@@ -273,12 +300,21 @@ class _TestingPageState extends State<TestingPage> {
                                 padding: const EdgeInsets.only(
                                     left: 10, top: 10, bottom: 10, right: 5),
                                 decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 250, 248, 248),
+                                  color: (testings.isNotEmpty &&
+                                          testings[_index]['answer_user'] ==
+                                              '3')
+                                      ? const Color.fromARGB(255, 22, 143, 96)
+                                      : const Color.fromARGB(
+                                          255, 250, 248, 248),
                                   borderRadius: BorderRadius.circular(9),
                                   border: Border.all(
-                                    color: const Color.fromARGB(
-                                        255, 222, 222, 222),
+                                    color: (testings.isNotEmpty &&
+                                            testings[_index]['answer_user'] ==
+                                                '3')
+                                        ? const Color.fromARGB(
+                                            255, 71, 161, 128)
+                                        : const Color.fromARGB(
+                                            255, 222, 222, 222),
                                   ),
                                   boxShadow: const <BoxShadow>[
                                     BoxShadow(
@@ -292,11 +328,15 @@ class _TestingPageState extends State<TestingPage> {
                                   testings.isEmpty
                                       ? '?'
                                       : 'ค. ${testings[_index]['ch3']}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Kanit',
                                     fontSize: 14,
                                     fontWeight: FontWeight.w300,
-                                    color: Color.fromRGBO(41, 41, 41, 1),
+                                    color: (testings.isNotEmpty &&
+                                            testings[_index]['answer_user'] ==
+                                                '3')
+                                        ? const Color.fromRGBO(255, 255, 255, 1)
+                                        : const Color.fromRGBO(41, 41, 41, 1),
                                   ),
                                 ),
                               ),
@@ -316,12 +356,21 @@ class _TestingPageState extends State<TestingPage> {
                                 padding: const EdgeInsets.only(
                                     left: 10, top: 10, bottom: 10, right: 5),
                                 decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 250, 248, 248),
+                                  color: (testings.isNotEmpty &&
+                                          testings[_index]['answer_user'] ==
+                                              '4')
+                                      ? const Color.fromARGB(255, 22, 143, 96)
+                                      : const Color.fromARGB(
+                                          255, 250, 248, 248),
                                   borderRadius: BorderRadius.circular(9),
                                   border: Border.all(
-                                    color: const Color.fromARGB(
-                                        255, 222, 222, 222),
+                                    color: (testings.isNotEmpty &&
+                                            testings[_index]['answer_user'] ==
+                                                '4')
+                                        ? const Color.fromARGB(
+                                            255, 71, 161, 128)
+                                        : const Color.fromARGB(
+                                            255, 222, 222, 222),
                                   ),
                                   boxShadow: const <BoxShadow>[
                                     BoxShadow(
@@ -335,11 +384,15 @@ class _TestingPageState extends State<TestingPage> {
                                   testings.isEmpty
                                       ? '?'
                                       : 'ง. ${testings[_index]['ch4']}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Kanit',
                                     fontSize: 14,
                                     fontWeight: FontWeight.w300,
-                                    color: Color.fromRGBO(41, 41, 41, 1),
+                                    color: (testings.isNotEmpty &&
+                                            testings[_index]['answer_user'] ==
+                                                '4')
+                                        ? const Color.fromRGBO(255, 255, 255, 1)
+                                        : const Color.fromRGBO(41, 41, 41, 1),
                                   ),
                                 ),
                               ),
@@ -391,29 +444,32 @@ class _TestingPageState extends State<TestingPage> {
                       ),
 
                       // ปุ่มส่งคำตอบ
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20, bottom: 30),
-                        child: Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(9),
-                            gradient: const LinearGradient(
-                              begin: Alignment.topRight,
-                              end: Alignment.bottomLeft,
-                              colors: [
-                                Color.fromARGB(255, 49, 162, 253),
-                                Color.fromARGB(255, 21, 84, 161),
-                              ],
+                      Visibility(
+                        visible: isVisibleSentAnswer,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 20, bottom: 30),
+                          child: Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(9),
+                              gradient: const LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: [
+                                  Color.fromARGB(255, 49, 162, 253),
+                                  Color.fromARGB(255, 21, 84, 161),
+                                ],
+                              ),
                             ),
-                          ),
-                          alignment: Alignment.center,
-                          child: const Text(
-                            'ตรวจคำตอบ',
-                            style: TextStyle(
-                              fontFamily: 'Kanit',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w300,
-                              color: Color.fromRGBO(255, 255, 255, 1),
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'ตรวจคำตอบ',
+                              style: TextStyle(
+                                fontFamily: 'Kanit',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300,
+                                color: Color.fromRGBO(255, 255, 255, 1),
+                              ),
                             ),
                           ),
                         ),
@@ -448,7 +504,22 @@ class _TestingPageState extends State<TestingPage> {
 
   void getAnswer(String ans) {
     // set คำตอบใหม่ทุกครั้ง
-    testings[_index]['answer'] = ans;
+    testings[_index]['answer_user'] = ans;
     nextStep();
+    checkProgress();
+  }
+
+  void checkProgress() {
+    var check = 0;
+    var progress = 0.0;
+    for (int i = 0; i < testings.length; i++) {
+      if (testings[i]['answer_user'] == '0') {
+        check++;
+      } else {
+        progress += 0.1;
+      }
+    }
+    if (check == 0) isVisibleSentAnswer = true;
+    _progress = progress;
   }
 }

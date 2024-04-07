@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -69,13 +72,16 @@ class HomePage extends StatelessWidget {
                             Icons.notifications_active,
                             color: Color.fromRGBO(255, 255, 255, 1),
                           ),
-                          Text(
-                            'ดาวน์โหลดข้อสอบฟรี กดเลย',
-                            style: TextStyle(
-                              fontFamily: 'Kanit',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w300,
-                              color: Color.fromRGBO(255, 255, 255, 1),
+                          Padding(
+                            padding: EdgeInsets.only(right: 5, left: 5),
+                            child: Text(
+                              'ดาวน์โหลดข้อสอบฟรี',
+                              style: TextStyle(
+                                fontFamily: 'Kanit',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300,
+                                color: Color.fromRGBO(255, 255, 255, 1),
+                              ),
                             ),
                           ),
                           Icon(
@@ -89,7 +95,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              const Row(
+              Row(
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,7 +106,15 @@ class HomePage extends StatelessWidget {
                           fontFamily: 'Kanit',
                           fontSize: 27,
                           fontWeight: FontWeight.w400,
-                          color: Color.fromRGBO(41, 41, 41, 1),
+                          foreground: Paint()
+                            ..shader = const LinearGradient(
+                              colors: <Color>[
+                                Color(0xff8921aa),
+                                Color.fromARGB(255, 214, 69, 185),
+                              ],
+                            ).createShader(
+                              const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
+                            ),
                         ),
                       ),
                       Text(
@@ -109,7 +123,15 @@ class HomePage extends StatelessWidget {
                           fontFamily: 'Kanit',
                           fontSize: 24,
                           fontWeight: FontWeight.w300,
-                          color: Color.fromRGBO(41, 41, 41, 1),
+                          foreground: Paint()
+                            ..shader = const LinearGradient(
+                              colors: <Color>[
+                                Color.fromARGB(255, 39, 35, 40),
+                                Color.fromARGB(255, 96, 83, 94),
+                              ],
+                            ).createShader(
+                              const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
+                            ),
                         ),
                       ),
                     ],
@@ -177,24 +199,6 @@ class HomePage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const Column(
-                            children: [
-                              Icon(
-                                Icons.article,
-                                color: Color.fromRGBO(183, 153, 108, 1),
-                                size: 35,
-                              ),
-                              Text(
-                                'แนวข้อสอบ',
-                                style: TextStyle(
-                                  fontFamily: 'Kanit',
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w300,
-                                  color: Color.fromRGBO(41, 41, 41, 1),
-                                ),
-                              ),
-                            ],
-                          ),
                           InkWell(
                             onTap: () {
                               context.push('/agenda');
@@ -207,7 +211,30 @@ class HomePage extends StatelessWidget {
                                   size: 35,
                                 ),
                                 Text(
-                                  'เกฑณ์สอบ',
+                                  'เกณฑ์สอบ',
+                                  style: TextStyle(
+                                    fontFamily: 'Kanit',
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w300,
+                                    color: Color.fromRGBO(41, 41, 41, 1),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              context.push('/guideline');
+                            },
+                            child: const Column(
+                              children: [
+                                Icon(
+                                  Icons.article,
+                                  color: Color.fromRGBO(183, 153, 108, 1),
+                                  size: 35,
+                                ),
+                                Text(
+                                  'แนวข้อสอบ',
                                   style: TextStyle(
                                     fontFamily: 'Kanit',
                                     fontSize: 12,
@@ -253,7 +280,7 @@ class HomePage extends StatelessWidget {
                             context.push('/pay');
                           },
                           child: const Padding(
-                            padding: EdgeInsets.only(bottom: 20),
+                            padding: EdgeInsets.only(top: 1),
                             child: Column(
                               children: [
                                 Icon(

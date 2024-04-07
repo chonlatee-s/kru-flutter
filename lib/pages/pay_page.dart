@@ -128,7 +128,7 @@ class PayPage extends StatelessWidget {
               child: const Column(
                 children: [
                   Text(
-                    'ขอบคุณที่คอยดูแลเรานะ',
+                    'ขอบคุณที่คอยดูแลกันนะ',
                     style: TextStyle(
                       fontFamily: 'Kanit',
                       fontSize: 31,

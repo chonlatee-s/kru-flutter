@@ -147,7 +147,6 @@ class _PredictPageState extends State<PredictPage> {
                                             color:
                                                 Color.fromRGBO(41, 41, 41, 1),
                                           ),
-                                          textAlign: TextAlign.justify,
                                         );
                                       },
                                     ),

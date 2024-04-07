@@ -29,7 +29,7 @@ class _AgendaPageState extends State<AgendaPage> {
         child: Column(
           children: [
             const Padding(
-              padding: EdgeInsets.only(top: 50),
+              padding: EdgeInsets.only(top: 20),
               child: Text(
                 'การสอบแบ่งออกเป็น 3 ส่วน',
                 style: TextStyle(

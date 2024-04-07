@@ -77,7 +77,6 @@ class AboutUsPage extends StatelessWidget {
                             fontWeight: FontWeight.w300,
                             color: Color.fromRGBO(41, 41, 41, 1),
                           ),
-                          textAlign: TextAlign.justify,
                         ),
                         const Padding(
                           padding: EdgeInsets.only(top: 20, bottom: 50),
@@ -89,7 +88,6 @@ class AboutUsPage extends StatelessWidget {
                               fontWeight: FontWeight.w300,
                               color: Color.fromRGBO(41, 41, 41, 1),
                             ),
-                            textAlign: TextAlign.justify,
                           ),
                         ),
                         InkWell(
@@ -102,9 +100,10 @@ class AboutUsPage extends StatelessWidget {
                               decoration: TextDecoration.none,
                               color: Colors.blue,
                               fontFamily: 'Kanit',
-                              fontSize: 10,
+                              fontSize: 12,
                               fontWeight: FontWeight.w300,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ],

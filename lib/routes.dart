@@ -6,6 +6,7 @@ import 'package:kru/pages/guideline_page.dart';
 import 'package:kru/pages/home_page.dart';
 import 'package:kru/pages/pay_page.dart';
 import 'package:kru/pages/predict_page.dart';
+import 'package:kru/pages/testing_page.dart';
 
 final GoRouter router = GoRouter(routes: [
   GoRoute(
@@ -42,6 +43,12 @@ final GoRouter router = GoRouter(routes: [
     path: '/guideline',
     builder: (BuildContext context, GoRouterState state) {
       return const GuidelinePage();
+    },
+  ),
+  GoRoute(
+    path: '/testing',
+    builder: (BuildContext context, GoRouterState state) {
+      return const TestingPage();
     },
   ),
 ]);

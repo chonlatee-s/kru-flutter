@@ -81,7 +81,7 @@ class AboutUsPage extends StatelessWidget {
                         const Padding(
                           padding: EdgeInsets.only(top: 20, bottom: 50),
                           child: Text(
-                            'ทุกคนสามารถเป็นส่วนหนึ่งของการแบ่งปันได้ เช่น แนวข้อสอบ สื่อการสอน หรือแผนการสอน มาร่วมสร้างสังคมแห่งการแบ่งปันไปด้วยกัน ขอบคุณรูปหน้าปกสวย ๆ จาก jannoon028',
+                            'ทุกคนสามารถเป็นส่วนหนึ่งของการแบ่งปันได้ เช่น แนวข้อสอบ สื่อการสอน หรือแผนการสอน มาร่วมสร้างสังคมแห่งการแบ่งปันไปด้วยกัน ขอบคุณรูปหน้าปกสวย ๆ จาก freepik.com',
                             style: TextStyle(
                               fontFamily: 'Kanit',
                               fontSize: 15,

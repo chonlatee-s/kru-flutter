@@ -4,6 +4,7 @@ import 'package:kru/pages/about_us_page.dart';
 import 'package:kru/pages/agenda_page.dart';
 import 'package:kru/pages/guideline_page.dart';
 import 'package:kru/pages/home_page.dart';
+import 'package:kru/pages/landing_page.dart';
 import 'package:kru/pages/pay_page.dart';
 import 'package:kru/pages/predict_page.dart';
 import 'package:kru/pages/testing_page.dart';
@@ -11,6 +12,12 @@ import 'package:kru/pages/testing_page.dart';
 final GoRouter router = GoRouter(routes: [
   GoRoute(
     path: '/',
+    builder: (BuildContext context, GoRouterState state) {
+      return const LandingPage();
+    },
+  ),
+  GoRoute(
+    path: '/home',
     builder: (BuildContext context, GoRouterState state) {
       return const HomePage();
     },

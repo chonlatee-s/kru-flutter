@@ -34,7 +34,7 @@ class PayPage extends StatelessWidget {
                     onSelectionChanged: (selection, cause) {},
                     style: const TextStyle(
                       fontFamily: 'Kanit',
-                      fontSize: 21,
+                      fontSize: 19,
                       fontWeight: FontWeight.w500,
                       color: Color.fromARGB(255, 21, 84, 161),
                     ),
@@ -128,7 +128,7 @@ class PayPage extends StatelessWidget {
               child: const Column(
                 children: [
                   Text(
-                    'ขอบคุณที่คอยดูแลกันนะ',
+                    'ขอบคุณที่ดูแลกันนะ',
                     style: TextStyle(
                       fontFamily: 'Kanit',
                       fontSize: 31,

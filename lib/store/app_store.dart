@@ -17,6 +17,14 @@ final guidelinesChanged = ChangeNotifier();
 var testings = [];
 final testingsChanged = ChangeNotifier();
 
+//getWord
+var word = "";
+final wordChanged = ChangeNotifier();
+
+//getWord
+var news = [];
+final newsChanged = ChangeNotifier();
+
 // เซียมซี
 void getPredict() async {
   Random random = Random();
@@ -71,4 +79,26 @@ void getTesting() async {
     );
   }
   testingsChanged.notifyListeners();
+}
+
+// word
+void getWord() async {
+  final result = await http.get(
+    Uri.parse('https://xn--42cm7czac0a7jb0li.com/getWordApp.php'),
+  );
+
+  final json = jsonDecode(result.body);
+  word = json['word'];
+  wordChanged.notifyListeners();
+}
+
+// news
+void getNews() async {
+  final result = await http.get(
+    Uri.parse('https://xn--42cm7czac0a7jb0li.com/getNews.php'),
+  );
+
+  final json = jsonDecode(result.body);
+  news.add(json);
+  newsChanged.notifyListeners();
 }

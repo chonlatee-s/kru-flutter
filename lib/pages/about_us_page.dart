@@ -142,7 +142,7 @@ class AboutUsPage extends StatelessWidget {
           ],
           currentIndex: 1,
           onTap: (int index) {
-            if (index == 0) context.go('/');
+            if (index == 0) context.go('/home');
           },
           selectedItemColor: const Color.fromARGB(255, 21, 84, 161),
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),

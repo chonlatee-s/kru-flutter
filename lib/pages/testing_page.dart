@@ -640,7 +640,7 @@ class _TestingPageState extends State<TestingPage> {
   }
 
   void getTime() {
-    const duration = Duration(minutes: 1); // กำหนดระยะเวลา 10 นาที
+    const duration = Duration(minutes: 10); // กำหนดระยะเวลา 10 นาที
     int countdown = duration.inSeconds; // นับถอยหลังในหน่วยวินาที
 
     // เริ่มตัวนับเวลา

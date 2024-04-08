@@ -60,58 +60,51 @@ class AboutUsPage extends StatelessWidget {
               ),
             ),
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return ListTile(
-                  title: Padding(
-                    padding:
-                        const EdgeInsets.only(top: 20, left: 10, right: 10),
-                    child: Column(
-                      children: [
-                        const Text(
-                          'แอปพลิเคชันนี้สร้างขึ้นมา เพื่อให้ผู้ที่จะสอบครูผู้ช่วย ได้เตรียมความพร้อมในการสอบ ก่อนลงสนามจริง หากพบข้อผิดพลาด หรือมีคำแนะนำ ติดต่อที่ kruchonlatee@gmail.com',
-                          style: TextStyle(
-                            fontFamily: 'Kanit',
-                            fontSize: 15,
-                            fontWeight: FontWeight.w300,
-                            color: Color.fromRGBO(41, 41, 41, 1),
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 20, bottom: 50),
-                          child: Text(
-                            'ทุกคนสามารถเป็นส่วนหนึ่งของการแบ่งปันได้ เช่น แนวข้อสอบ สื่อการสอน หรือแผนการสอน มาร่วมสร้างสังคมแห่งการแบ่งปันไปด้วยกัน ขอบคุณรูปหน้าปกสวย ๆ จาก freepik.com',
-                            style: TextStyle(
-                              fontFamily: 'Kanit',
-                              fontSize: 15,
-                              fontWeight: FontWeight.w300,
-                              color: Color.fromRGBO(41, 41, 41, 1),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () => launchUrl(
-                            Uri.parse('https://xn--42cm7czac0a7jb0li.com/'),
-                          ),
-                          child: const Text(
-                            'ข้อมูลเพิ่มเติม ครูผู้ช่วย.com',
-                            style: TextStyle(
-                              decoration: TextDecoration.none,
-                              color: Colors.blue,
-                              fontFamily: 'Kanit',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w300,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 20, left: 10, right: 10, bottom: 20),
+              child: Column(
+                children: [
+                  const Text(
+                    'แอปพลิเคชันนี้สร้างขึ้นมา เพื่อให้ผู้ที่จะสอบครูผู้ช่วย ได้เตรียมความพร้อมในการสอบ ก่อนลงสนามจริง หากพบข้อผิดพลาด หรือมีคำแนะนำ ติดต่อที่ kruchonlatee@gmail.com',
+                    style: TextStyle(
+                      fontFamily: 'Kanit',
+                      fontSize: 15,
+                      fontWeight: FontWeight.w300,
+                      color: Color.fromRGBO(41, 41, 41, 1),
                     ),
                   ),
-                );
-              },
-              childCount: 1,
+                  const Padding(
+                    padding: EdgeInsets.only(top: 20, bottom: 50),
+                    child: Text(
+                      'ทุกคนสามารถเป็นส่วนหนึ่งของการแบ่งปันได้ เช่น แนวข้อสอบ สื่อการสอน หรือแผนการสอน มาร่วมสร้างสังคมแห่งการแบ่งปันไปด้วยกัน ขอบคุณรูปหน้าปกสวย ๆ จาก freepik.com',
+                      style: TextStyle(
+                        fontFamily: 'Kanit',
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                        color: Color.fromRGBO(41, 41, 41, 1),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () => launchUrl(
+                      Uri.parse('https://xn--42cm7czac0a7jb0li.com/'),
+                    ),
+                    child: const Text(
+                      'ข้อมูลเพิ่มเติม ครูผู้ช่วย.com',
+                      style: TextStyle(
+                        decoration: TextDecoration.none,
+                        color: Colors.blue,
+                        fontFamily: 'Kanit',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -125,6 +118,7 @@ class AboutUsPage extends StatelessWidget {
         child: const Icon(
           Icons.edit_note,
           size: 40,
+          color: Color.fromRGBO(138, 99, 0, 1),
         ),
       ),
       bottomNavigationBar: SizedBox(

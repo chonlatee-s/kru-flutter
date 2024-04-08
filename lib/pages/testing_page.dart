@@ -18,6 +18,7 @@ class _TestingPageState extends State<TestingPage> {
   bool isVisibleSentAnswer = false;
   var _progress = 0.0;
   var timeCount = '10.00 น.';
+  late Timer _timer;
   final timeCountChanged = ChangeNotifier();
 
   @override
@@ -32,6 +33,12 @@ class _TestingPageState extends State<TestingPage> {
     super.initState();
     getTesting();
     getTime();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -88,7 +95,7 @@ class _TestingPageState extends State<TestingPage> {
                                 ),
                                 TextSpan(
                                   text:
-                                      ' : เลือกคำตอบที่ถูกต้องที่สุดเพียงข้อเดียวเท่านั้น',
+                                      ' : เลือกคำตอบที่ถูกต้องที่สุดเพียงข้อเดียว',
                                 )
                               ]),
                         ),
@@ -112,7 +119,7 @@ class _TestingPageState extends State<TestingPage> {
                                 fontFamily: 'Kanit',
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: Color.fromARGB(255, 21, 84, 161),
+                                color: Color.fromARGB(255, 27, 121, 198),
                               ),
                             ),
                             Text(
@@ -121,7 +128,7 @@ class _TestingPageState extends State<TestingPage> {
                                 fontFamily: 'Kanit',
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: Color.fromARGB(255, 21, 84, 161),
+                                color: Color.fromARGB(255, 27, 121, 198),
                               ),
                             ),
                           ],
@@ -138,9 +145,9 @@ class _TestingPageState extends State<TestingPage> {
                               lineHeight: 8.0,
                               percent: _progress,
                               backgroundColor:
-                                  const Color.fromARGB(255, 180, 180, 180),
+                                  const Color.fromARGB(255, 199, 199, 199),
                               progressColor:
-                                  const Color.fromARGB(255, 21, 84, 161),
+                                  const Color.fromARGB(255, 27, 121, 198),
                             )
                           ],
                         ),
@@ -424,11 +431,11 @@ class _TestingPageState extends State<TestingPage> {
                                     ),
                                   ),
                                   const Text(
-                                    'กดลูกศรเพื่อข้ามหรือย้อนกลับได้',
+                                    'กดลูกศรเพื่อข้ามหรือย้อนกลับ',
                                     style: TextStyle(
                                       fontFamily: 'Kanit',
                                       fontSize: 12,
-                                      fontWeight: FontWeight.w200,
+                                      fontWeight: FontWeight.w300,
                                       color: Color.fromRGBO(41, 41, 41, 1),
                                     ),
                                   ),
@@ -451,29 +458,34 @@ class _TestingPageState extends State<TestingPage> {
                       // ปุ่มส่งคำตอบ
                       Visibility(
                         visible: isVisibleSentAnswer,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 20, bottom: 30),
-                          child: Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(9),
-                              gradient: const LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: [
-                                  Color.fromARGB(255, 49, 162, 253),
-                                  Color.fromARGB(255, 21, 84, 161),
-                                ],
+                        child: InkWell(
+                          onTap: () {
+                            checkAnswer();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 20, bottom: 30),
+                            child: Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(9),
+                                gradient: const LinearGradient(
+                                  begin: Alignment.topRight,
+                                  end: Alignment.bottomLeft,
+                                  colors: [
+                                    Color.fromARGB(255, 49, 162, 253),
+                                    Color.fromARGB(255, 21, 84, 161),
+                                  ],
+                                ),
                               ),
-                            ),
-                            alignment: Alignment.center,
-                            child: const Text(
-                              'ตรวจคำตอบ',
-                              style: TextStyle(
-                                fontFamily: 'Kanit',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w300,
-                                color: Color.fromRGBO(255, 255, 255, 1),
+                              alignment: Alignment.center,
+                              child: const Text(
+                                'ตรวจคำตอบ',
+                                style: TextStyle(
+                                  fontFamily: 'Kanit',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w300,
+                                  color: Color.fromRGBO(255, 255, 255, 1),
+                                ),
                               ),
                             ),
                           ),
@@ -533,7 +545,7 @@ class _TestingPageState extends State<TestingPage> {
     int countdown = duration.inSeconds; // นับถอยหลังในหน่วยวินาที
 
     // เริ่มตัวนับเวลา
-    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (countdown == 0) {
         timer.cancel(); // หยุดตัวนับเวลาเมื่อนับถอยหลังเสร็จสิ้น
         // print('เวลาหมดแล้ว!');
@@ -552,5 +564,7 @@ class _TestingPageState extends State<TestingPage> {
     // print('เริ่มตัวนับเวลา...');
   }
 
-  void checkAnswer() {}
+  void checkAnswer() {
+    print('ตรวจคำตอบ');
+  }
 }

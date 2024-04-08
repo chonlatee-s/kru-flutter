@@ -118,7 +118,9 @@ class AboutUsPage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          context.push('/testing');
+        },
         tooltip: 'ทำข้อสอบ',
         child: const Icon(
           Icons.edit_note,

@@ -86,7 +86,7 @@ class LandingPage extends StatelessWidget {
   }
 
   loading(BuildContext context) {
-    Timer(const Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 2), () {
       context.go('/home');
     });
   }

@@ -1,4 +1,4 @@
-package com.example.kru
+package com.kruApp.kruphoochuay
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -43,5 +43,5 @@ app.*.map.json
 /android/app/release
 
 
-.pem
-.jks
+upload_certificate.pem
+myNewKeyStore.jks

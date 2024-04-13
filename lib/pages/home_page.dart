@@ -185,8 +185,31 @@ class HomePage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 20),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
+                                InkWell(
+                                  onTap: () {
+                                    context.push('/testing');
+                                  },
+                                  child: const Column(
+                                    children: [
+                                      Icon(
+                                        Icons.edit_note,
+                                        color: Color.fromRGBO(183, 153, 108, 1),
+                                        size: 35,
+                                      ),
+                                      Text(
+                                        'ทำข้อสอบ',
+                                        style: TextStyle(
+                                          fontFamily: 'Kanit',
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w300,
+                                          color: Color.fromRGBO(41, 41, 41, 1),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                                 InkWell(
                                   onTap: () {
                                     context.push('/predict');
@@ -256,36 +279,59 @@ class HomePage extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                InkWell(
-                                  onTap: () => launchUrl(
-                                    Uri.parse(
-                                        'https://www.youtube.com/@user-cj1wo4od5c/playlists'),
-                                  ),
-                                  child: const Column(
-                                    children: [
-                                      Icon(
-                                        Icons.rocket_launch,
-                                        color: Color.fromRGBO(183, 153, 108, 1),
-                                        size: 35,
-                                      ),
-                                      Text(
-                                        'เรียนออนไลน์',
-                                        style: TextStyle(
-                                          fontFamily: 'Kanit',
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w300,
-                                          color: Color.fromRGBO(41, 41, 41, 1),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ],
                             ),
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
+                              InkWell(
+                                onTap: () {
+                                  context.push('/job');
+                                },
+                                child: const Column(
+                                  children: [
+                                    Icon(
+                                      Icons.content_paste_search,
+                                      color: Color.fromRGBO(183, 153, 108, 1),
+                                      size: 35,
+                                    ),
+                                    Text(
+                                      'หางาน',
+                                      style: TextStyle(
+                                        fontFamily: 'Kanit',
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w300,
+                                        color: Color.fromRGBO(41, 41, 41, 1),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () => launchUrl(
+                                  Uri.parse(
+                                      'https://www.youtube.com/@user-cj1wo4od5c/playlists'),
+                                ),
+                                child: const Column(
+                                  children: [
+                                    Icon(
+                                      Icons.rocket_launch,
+                                      color: Color.fromRGBO(183, 153, 108, 1),
+                                      size: 35,
+                                    ),
+                                    Text(
+                                      'เรียนออนไลน์',
+                                      style: TextStyle(
+                                        fontFamily: 'Kanit',
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w300,
+                                        color: Color.fromRGBO(41, 41, 41, 1),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                               InkWell(
                                 onTap: () {
                                   context.push('/pay');

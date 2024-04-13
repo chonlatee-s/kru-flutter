@@ -30,101 +30,101 @@ class _GuidelinePageState extends State<GuidelinePage> {
           ),
         ),
       ),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            pinned: false,
-            floating: true,
-            expandedHeight: 160.0,
-            flexibleSpace: FlexibleSpaceBar(
-              title: const Text(
-                'แนวข้อสอบ',
-                style: TextStyle(
-                  fontFamily: 'Kanit',
-                  fontSize: 21,
-                  fontWeight: FontWeight.w400,
-                  color: Color.fromRGBO(252, 252, 252, 1),
-                ),
-              ),
-              background: Image.asset(
-                'assets/img/guideline.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          ListenableBuilder(
-              listenable: guidelinesChanged,
-              builder: (context, child) {
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return ListTile(
-                        leading: const Icon(
-                          Icons.arrow_right,
-                        ),
-                        title: Text('${guidelines[index]['topic']}',
-                            style: const TextStyle(
-                              fontFamily: 'Kanit',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w300,
-                              color: Color.fromRGBO(41, 41, 41, 1),
-                            )),
-                        trailing: IconButton(
-                          onPressed: () {
-                            launchUrl(
-                              Uri.parse('${guidelines[index]['link']}'),
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.search,
-                            size: 20,
-                          ),
-                        ),
-                      );
-                    },
-                    childCount: guidelines.length,
-                  ),
-                );
-              }),
-        ],
-      ),
-
-      // body: Padding(
-      //   padding: const EdgeInsets.only(top: 10, left: 5, bottom: 10),
-      //   child: ListenableBuilder(
-      //       listenable: guidelinesChanged,
-      //       builder: (context, child) {
-      //         return ListView.builder(
-      //           itemCount: guidelines.length,
-      //           itemBuilder: (BuildContext context, int index) {
-      //             return ListTile(
-      //               leading: const Icon(
-      //                 Icons.arrow_right,
-      //               ),
-      //               title: Text('${guidelines[index]['topic']}',
-      //                   style: const TextStyle(
-      //                     fontFamily: 'Kanit',
-      //                     fontSize: 12,
-      //                     fontWeight: FontWeight.w300,
-      //                     color: Color.fromRGBO(41, 41, 41, 1),
-      //                   )),
-      //               trailing: IconButton(
-      //                 onPressed: () {
-      //                   launchUrl(
-      //                     Uri.parse('${guidelines[index]['link']}'),
-      //                   );
-      //                 },
-      //                 icon: const Icon(
-      //                   Icons.search,
-      //                   size: 20,
-      //                 ),
-      //               ),
-      //             );
-      //           },
-      //         );
-      //       }),
+      // body: CustomScrollView(
+      //   slivers: <Widget>[
+      //     SliverAppBar(
+      //       automaticallyImplyLeading: false,
+      //       pinned: false,
+      //       floating: true,
+      //       expandedHeight: 160.0,
+      //       flexibleSpace: FlexibleSpaceBar(
+      //         title: const Text(
+      //           'แนวข้อสอบ',
+      //           style: TextStyle(
+      //             fontFamily: 'Kanit',
+      //             fontSize: 21,
+      //             fontWeight: FontWeight.w400,
+      //             color: Color.fromRGBO(252, 252, 252, 1),
+      //           ),
+      //         ),
+      //         background: Image.asset(
+      //           'assets/img/guideline.png',
+      //           fit: BoxFit.cover,
+      //         ),
+      //       ),
+      //     ),
+      //     ListenableBuilder(
+      //         listenable: guidelinesChanged,
+      //         builder: (context, child) {
+      //           return SliverList(
+      //             delegate: SliverChildBuilderDelegate(
+      //               (context, index) {
+      //                 return ListTile(
+      //                   leading: const Icon(
+      //                     Icons.arrow_right,
+      //                   ),
+      //                   title: Text('${guidelines[index]['topic']}',
+      //                       style: const TextStyle(
+      //                         fontFamily: 'Kanit',
+      //                         fontSize: 12,
+      //                         fontWeight: FontWeight.w300,
+      //                         color: Color.fromRGBO(41, 41, 41, 1),
+      //                       )),
+      //                   trailing: IconButton(
+      //                     onPressed: () {
+      //                       launchUrl(
+      //                         Uri.parse('${guidelines[index]['link']}'),
+      //                       );
+      //                     },
+      //                     icon: const Icon(
+      //                       Icons.search,
+      //                       size: 20,
+      //                     ),
+      //                   ),
+      //                 );
+      //               },
+      //               childCount: guidelines.length,
+      //             ),
+      //           );
+      //         }),
+      //   ],
       // ),
+
+      body: Padding(
+        padding: const EdgeInsets.only(top: 10, left: 5, bottom: 10),
+        child: ListenableBuilder(
+            listenable: guidelinesChanged,
+            builder: (context, child) {
+              return ListView.builder(
+                itemCount: guidelines.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    leading: const Icon(
+                      Icons.arrow_right,
+                    ),
+                    title: Text('${guidelines[index]['topic']}',
+                        style: const TextStyle(
+                          fontFamily: 'Kanit',
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                          color: Color.fromRGBO(41, 41, 41, 1),
+                        )),
+                    trailing: IconButton(
+                      onPressed: () {
+                        launchUrl(
+                          Uri.parse('${guidelines[index]['link']}'),
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.search,
+                        size: 20,
+                      ),
+                    ),
+                  );
+                },
+              );
+            }),
+      ),
     );
   }
 }

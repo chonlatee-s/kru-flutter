@@ -49,6 +49,7 @@ class _JobPageState extends State<JobPage> {
                           fontWeight: FontWeight.w300,
                           color: Color.fromRGBO(41, 41, 41, 1),
                         )),
+                    subtitle: convertDateTH(jobs[index]['date_end']),
                     trailing: IconButton(
                       onPressed: () {
                         launchUrl(
@@ -64,6 +65,19 @@ class _JobPageState extends State<JobPage> {
                 },
               );
             }),
+      ),
+    );
+  }
+
+  Widget convertDateTH(dateTime) {
+    List<String> d = dateTime.split("-"); // แยกสตริงโดยใช้เครื่องหมาย ','
+    return Text(
+      'รับสมัครถึง ${d[2]}-${d[1]}-${int.parse(d[0]) + 543}',
+      style: const TextStyle(
+        fontFamily: 'Kanit',
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        color: Color.fromRGBO(1, 83, 159, 1),
       ),
     );
   }

@@ -51,7 +51,7 @@ class _JobPageState extends State<JobPage> {
           }
 
           return ListView.builder(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 50), 
             itemCount: jobs.length,
             itemBuilder: (BuildContext context, int index) {
               final job = jobs[index];
@@ -103,7 +103,7 @@ class _JobPageState extends State<JobPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${job['topic']}',
+                      '${job['school']}',
                       style: const TextStyle(
                         fontFamily: 'Kanit',
                         fontSize: 15,

@@ -1,9 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart'; // 1. Import โฆษณา
 import 'package:kru/store/app_store.dart';
 
-class ExamModePage extends StatelessWidget {
+class ExamModePage extends StatefulWidget {
   const ExamModePage({super.key});
+
+  @override
+  State<ExamModePage> createState() => _ExamModePageState();
+}
+
+class _ExamModePageState extends State<ExamModePage> {
+  // --- ส่วนของ AdMob ---
+  BannerAd? _bannerAd;
+  bool _isLoaded = false;
+
+  // ID สำหรับทดสอบ (อย่าลืมเปลี่ยนเป็น ID จริงตอนปล่อยแอปนะครับ)
+  // final String adUnitId = 'ca-app-pub-5901161227057601/7431599741'; // ของจริง admob
+  final String adUnitId = 'ca-app-pub-3940256099942544/6300978111'; // ตัวทดสอบ
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAd(); // เริ่มโหลดโฆษณาเมื่อเปิดหน้าจอ
+  }
+
+  void _loadAd() {
+    _bannerAd = BannerAd(
+      adUnitId: adUnitId,
+      request: const AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _isLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          ad.dispose();
+        },
+      ),
+    )..load();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose(); // สำคัญ: คืนหน่วยความจำเมื่อออกจากหน้าจอ
+    super.dispose();
+  }
+  // ----------------------
 
   static const Color brandGold = Color(0xFFB9976C);
   static const Color brandNavy = Color(0xFF2D2F31);
@@ -28,7 +73,6 @@ class ExamModePage extends StatelessWidget {
           ),
         ),
         actions: [
-          // แสดงปุ่ม Logout เฉพาะเมื่อเข้าสู่ระบบแล้ว
           ListenableBuilder(
             listenable: userChanged,
             builder: (context, child) {
@@ -46,32 +90,26 @@ class ExamModePage extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            // --- โหมดแข่งขัน (ใช้ ListenableBuilder เพื่อเปลี่ยน UI ทันทีที่ล็อกอิน) ---
             ListenableBuilder(
               listenable: userChanged,
               builder: (context, child) {
                 bool isLoggedIn = currentUser != null;
                 return _buildModeCard(
                   context,
-                  title: isLoggedIn 
-                      ? 'โหมดแข่งขัน' 
-                      : 'โหมดแข่งขัน',
+                  title: isLoggedIn ? 'โหมดแข่งขัน' : 'โหมดแข่งขัน',
                   subtitle: isLoggedIn
                       ? 'คุณเข้าสู่ระบบในชื่อ: ${currentUser!['name']}'
                       : 'สุ่ม 20 ข้อจากทุกหมวดหมู่ (ต้องล็อกอินเพื่อเก็บคะแนน)',
-                  icon: isLoggedIn ? Icons.emoji_events : Icons.emoji_events,
+                  icon: Icons.emoji_events,
                   color: brandNavy,
                   onTap: () async {
                     if (!isLoggedIn) {
-                      // ถ้ายังไม่ล็อกอิน ให้แสดง Loading ระหว่างรอ Google Popup
                       _showLoading(context);
                       await loginWithGoogle(context);
-                      if (context.mounted) Navigator.pop(context); // ปิด Loading
+                      if (context.mounted) Navigator.pop(context);
                     }
 
-                    // ถ้าล็อกอินสำเร็จแล้ว (หรือเดิมล็อกอินอยู่แล้ว) ให้ไปหน้าสอบ
                     if (currentUser != null && context.mounted) {
-                      print("DEBUG: กำลังส่งค่า mode = exam ไปยัง Router");
                       getTesting(mode: 'exam');
                       context.push('/testing?mode=exam');
                     }
@@ -79,10 +117,7 @@ class ExamModePage extends StatelessWidget {
                 );
               },
             ),
-
             const SizedBox(height: 20),
-
-            // --- โหมดฝึกฝน ---
             _buildModeCard(
               context,
               title: 'โหมดฝึกฝน',
@@ -94,10 +129,18 @@ class ExamModePage extends StatelessWidget {
           ],
         ),
       ),
+      
+      // --- วาง Banner ไว้ล่างสุดตรงนี้ครับ ---
+      bottomNavigationBar: _isLoaded
+          ? SizedBox(
+              height: _bannerAd!.size.height.toDouble(),
+              width: _bannerAd!.size.width.toDouble(),
+              child: AdWidget(ad: _bannerAd!),
+            )
+          : const SizedBox.shrink(),
     );
   }
 
-  // --- Widget สำหรับหน้ากากเลือกโหมด ---
   Widget _buildModeCard(BuildContext context,
       {required String title,
       required String subtitle,
@@ -168,7 +211,6 @@ class ExamModePage extends StatelessWidget {
     );
   }
 
-  // --- BottomSheet เลือกหมวดหมู่ ---
   void _showCategoryPicker(BuildContext context) {
     getCategories();
     showModalBottomSheet(
@@ -245,7 +287,6 @@ class ExamModePage extends StatelessWidget {
     );
   }
 
-  // --- Helper Dialogs ---
   void _showLoading(BuildContext context) {
     showDialog(
       context: context,

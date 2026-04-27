@@ -230,7 +230,7 @@ class PayPage extends StatelessWidget {
               color: brandGold,
             ),
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 6),
           Text(
             'เพราะร่างกายขาดชานมไข่มุกไม่ได้',
             style: TextStyle(

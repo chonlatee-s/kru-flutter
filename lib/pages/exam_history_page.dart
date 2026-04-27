@@ -74,7 +74,7 @@ class _ExamHistoryPageState extends State<ExamHistoryPage> {
                 _buildHeaderSummary(),
                 Expanded(
                   child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 50),
                     itemCount: examHistory.length,
                     itemBuilder: (context, index) {
                       final item = examHistory[index];

@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.push('/exam-mode'),
-        backgroundColor: brandNavy,
+        backgroundColor: brandGold,
         elevation: 4,
         child: const Icon(Icons.edit_document, color: Colors.white, size: 28),
       ),
@@ -170,9 +170,10 @@ class _HomePageState extends State<HomePage> {
       width: double.infinity,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [brandGold, Color(0xFFDFC39A)]),
+        // gradient: const LinearGradient(colors: [brandGold, Color(0xFFDFC39A)]),
+        gradient: const LinearGradient(colors: [Color.fromARGB(255, 69, 89, 177), Color.fromARGB(255, 117, 114, 190)]),
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [BoxShadow(color: brandGold.withOpacity(0.3), blurRadius: 15, offset: const Offset(0, 8))],
+        boxShadow: [BoxShadow(color: Color.fromARGB(255, 144, 182, 240), blurRadius: 8, offset: const Offset(0, 3))],
       ),
       child: Row(
         children: [
@@ -185,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () => context.push('/exam-mode'),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white, foregroundColor: brandGold, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white, foregroundColor: Color.fromARGB(255, 1, 78, 150), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                   child: const Text('เริ่มสอบเลย', style: TextStyle(fontFamily: 'Kanit', fontWeight: FontWeight.bold)),
                 )
               ],
@@ -208,7 +209,7 @@ class _HomePageState extends State<HomePage> {
           _buildMenuItem(context, Icons.search, 'หางาน', path: '/job'),
           _buildMenuItem(
             context, 
-            Icons.rocket_launch, 
+            Icons.history, 
             'ประวัติสอบ', 
             onTap: () {
               if (currentUser != null) {

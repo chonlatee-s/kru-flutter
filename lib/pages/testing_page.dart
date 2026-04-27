@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import '../store/app_store.dart';
+import '../services/ad_helper.dart';
 
 class TestingPage extends StatefulWidget {
   final String mode;
@@ -27,6 +28,7 @@ class _TestingPageState extends State<TestingPage> {
   @override
   void initState() {
     super.initState();
+    AdHelper.loadInterstitialAd();
     _remainingSeconds = (widget.mode == 'exam') ? 20 * 60 : 10 * 60;
     _startTimer();
     _checkData();
@@ -95,7 +97,14 @@ class _TestingPageState extends State<TestingPage> {
         actions: [
           Center(
             child: ElevatedButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                // 1. สั่งแสดงโฆษณาก่อน
+                AdHelper.showInterstitialAd(() {
+                  // 2. เมื่อปิดโฆษณา หรือโฆษณาโหลดไม่ขึ้น ให้ทำคำสั่งข้างล่างนี้
+                  Navigator.pop(context); // ปิด Dialog สรุปผล
+                });
+              },
+              // onPressed: () => Navigator.pop(context),
               style: ElevatedButton.styleFrom(backgroundColor: brandNavy, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
               child: const Text('ดูเฉลยละเอียด', style: TextStyle(color: Colors.white, fontFamily: 'Kanit')),
             ),
@@ -296,6 +305,7 @@ Widget _buildBottomNav(int limit) {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
               ),
             ),
+            
           ],
         ),
       ),

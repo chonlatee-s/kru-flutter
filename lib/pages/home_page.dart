@@ -287,6 +287,7 @@ class _HomePageState extends State<HomePage> {
             const Icon(Icons.campaign, color: Colors.green, size: 20),
             const SizedBox(width: 10),
             Expanded(child: Text(text, style: const TextStyle(fontFamily: 'Kanit', fontSize: 13, color: Colors.green), maxLines: 1, overflow: TextOverflow.ellipsis)),
+            const Icon(Icons.arrow_forward_ios, color: Colors.green, size: 12),
           ],
         ),
       ),

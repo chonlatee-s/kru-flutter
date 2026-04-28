@@ -132,12 +132,14 @@ class _ExamModePageState extends State<ExamModePage> {
       
       // --- วาง Banner ไว้ล่างสุดตรงนี้ครับ ---
       bottomNavigationBar: _isLoaded
-          ? SizedBox(
+        ? SafeArea( // เพิ่ม SafeArea ครอบไว้ครับ
+            child: SizedBox(
               height: _bannerAd!.size.height.toDouble(),
               width: _bannerAd!.size.width.toDouble(),
               child: AdWidget(ad: _bannerAd!),
-            )
-          : const SizedBox.shrink(),
+            ),
+          )
+        : const SizedBox.shrink(),
     );
   }
 

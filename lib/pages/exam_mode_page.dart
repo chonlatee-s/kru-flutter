@@ -16,8 +16,8 @@ class _ExamModePageState extends State<ExamModePage> {
   bool _isLoaded = false;
 
   // ID สำหรับทดสอบ (อย่าลืมเปลี่ยนเป็น ID จริงตอนปล่อยแอปนะครับ)
-  // final String adUnitId = 'ca-app-pub-5901161227057601/7431599741'; // ของจริง admob
-  final String adUnitId = 'ca-app-pub-3940256099942544/6300978111'; // ตัวทดสอบ
+  final String adUnitId = 'ca-app-pub-5901161227057601/7431599741'; // ของจริง admob
+  // final String adUnitId = 'ca-app-pub-3940256099942544/6300978111'; // ตัวทดสอบ
 
   @override
   void initState() {

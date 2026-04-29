@@ -7,8 +7,8 @@ class AdHelper {
   // ID สำหรับทดสอบ (ห้ามใช้ ID จริงระหว่างพัฒนานะครับ)
   static String get interstitialAdUnitId {
     if (Platform.isAndroid) {
-      // return 'ca-app-pub-5901161227057601/1108771992'; // ของจริง admob
-      return 'ca-app-pub-3940256099942544/1033173712'; // ตัว test
+      return 'ca-app-pub-5901161227057601/1108771992'; // ของจริง admob
+      // return 'ca-app-pub-3940256099942544/1033173712'; // ตัว test
     } else {
       throw UnsupportedError('Unsupported platform');
     }

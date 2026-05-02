@@ -7,7 +7,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 // --- Configuration ---
 const String baseUrl = 'https://xn--42cm7czac0a7jb0li.com'; 
 // const String baseUrl = 'http://localhost/teacher_backend'; 
-// const String baseUrl = 'http://192.168.1.3/teacher_backend'; 
 const Map<String, String> apiHeaders = {
   'X-Api-Key': 'chaichon',
   'Content-Type': 'application/json',
@@ -44,15 +43,13 @@ List leaderboard = [];
 ValueNotifier leaderboardChanged = ValueNotifier(0);
 
 // --- Google Sign In Configuration ---
-// Client ID สำหรับ Web (ตัวเดิม)
-const String webClientId = '448726310003-kkojhsr9caqglr0bguovl27cr72gh43t.apps.googleusercontent.com';
-
-// Client ID สำหรับ Android (ตัวใหม่ที่คุณครูเพิ่งได้มา)
-const String androidClientId = '448726310003-3qgcbc47i686o9mu4g2ecedde6cg0lqi.apps.googleusercontent.com';
+// ใช้ค่า Web Client ID (client_type: 3) จากไฟล์ google-services.json ใหม่ของคุณ
+const String googleClientId = '448726310003-16as1nib4irqspbrkl607p4tkaoapmcl.apps.googleusercontent.com';
 
 final GoogleSignIn _googleSignIn = GoogleSignIn(
-  // เลือกระหว่าง Web ID หรือ Android ID ตาม Platform ที่รันแอป
-  clientId: kIsWeb ? webClientId : androidClientId,
+  // แยกส่งค่าตาม Platform เพื่อป้องกัน Error บน Web และแก้ Error 10 บน Android
+  clientId: kIsWeb ? googleClientId : null,
+  serverClientId: kIsWeb ? null : googleClientId,
   scopes: <String>[
     'email',
     'profile',
@@ -71,8 +68,10 @@ Future<void> loginWithGoogle(BuildContext context) async {
   try {
     debugPrint('1. เริ่มกระบวนการ Login (Platform: ${kIsWeb ? "Web" : "Android"})...');
     
-    currentUser = null;
-    userChanged.notifyListeners();
+    // บังคับ Sign Out ก่อนเพื่อความสดใหม่ของ Session เวลาเทส
+    if (await _googleSignIn.isSignedIn()) {
+      await _googleSignIn.signOut();
+    }
 
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
     
@@ -87,15 +86,16 @@ Future<void> loginWithGoogle(BuildContext context) async {
     Map<String, dynamic> requestBody;
 
     if (googleAuth.idToken != null) {
-      // สำหรับ Android/iOS: ส่ง idToken ไปให้ Backend ตรวจสอบ
+      // สำหรับ Android: ส่ง idToken ไปให้ Backend ตรวจสอบ (ปลอดภัยที่สุด)
+      debugPrint('ได้รับ idToken สำเร็จ');
       requestBody = {
         'token': googleAuth.idToken,
       };
     } else {
-      // สำหรับ Web: ส่งข้อมูล Profile ตรงๆ (เนื่องจากบางครั้ง Web ติดปัญหา CORS กับ idToken)
-      debugPrint('idToken เป็น null (Web Mode), ส่ง Profile Data แทน');
+      // สำหรับ Web หรือกรณี Token ไม่มา: ส่ง Profile Data แทน
+      debugPrint('idToken เป็น null, ส่ง Profile Data แทน');
       requestBody = {
-        'is_web': true,
+        'is_web': kIsWeb,
         'email': googleUser.email,
         'name': googleUser.displayName,
         'picture': googleUser.photoUrl,
@@ -124,7 +124,10 @@ Future<void> loginWithGoogle(BuildContext context) async {
         getExamHistory(); // ดึงประวัติการสอบทันที
         
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('ยินดีต้อนรับคุณ ${currentUser!['name']}')),
+          SnackBar(
+            content: Text('ยินดีต้อนรับคุณ ${currentUser!['name']}', style: const TextStyle(fontFamily: 'Kanit')),
+            backgroundColor: const Color(0xFF6A806A),
+          ),
         );
       } else {
         _showError(context, 'Server Error: ${jsonResponse['message']}');

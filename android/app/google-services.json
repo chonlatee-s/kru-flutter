@@ -1,1 +1,55 @@
-{"installed":{"client_id":"448726310003-3qgcbc47i686o9mu4g2ecedde6cg0lqi.apps.googleusercontent.com","project_id":"krunuxtjs","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs"}}
+{
+  "project_info": {
+    "project_number": "448726310003",
+    "project_id": "krunuxtjs",
+    "storage_bucket": "krunuxtjs.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448726310003:android:af73ed9bb859d8f92d5e06",
+        "android_client_info": {
+          "package_name": "com.kruApp.kruphoochuay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "448726310003-9q0tkdkblu3sslmst6i80t2or2qhvppv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kruApp.kruphoochuay",
+            "certificate_hash": "cfcf7a600d830462cccb458c601ee25d7cbf2fe3"
+          }
+        },
+        {
+          "client_id": "448726310003-rd91h6jddhucl46iocq6ke2eip85orgj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kruApp.kruphoochuay",
+            "certificate_hash": "b31aeeb2ad1755fc202fcc5415689a43c44508cb"
+          }
+        },
+        {
+          "client_id": "448726310003-16as1nib4irqspbrkl607p4tkaoapmcl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP92H40x8u23NfqiT38bS5UYm90a_tp1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "448726310003-16as1nib4irqspbrkl607p4tkaoapmcl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

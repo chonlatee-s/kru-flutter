@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart'; // 1. Import โฆษณา
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kru/store/app_store.dart';
 
 class ExamModePage extends StatefulWidget {
@@ -14,15 +14,19 @@ class _ExamModePageState extends State<ExamModePage> {
   // --- ส่วนของ AdMob ---
   BannerAd? _bannerAd;
   bool _isLoaded = false;
-
-  // ID สำหรับทดสอบ (อย่าลืมเปลี่ยนเป็น ID จริงตอนปล่อยแอปนะครับ)
-  final String adUnitId = 'ca-app-pub-5901161227057601/7431599741'; // ของจริง admob
-  // final String adUnitId = 'ca-app-pub-3940256099942544/6300978111'; // ตัวทดสอบ
+  final String adUnitId = 'ca-app-pub-5901161227057601/7431599741';
 
   @override
   void initState() {
     super.initState();
-    _loadAd(); // เริ่มโหลดโฆษณาเมื่อเปิดหน้าจอ
+    _loadAd();
+
+    // --- ส่วนดึงข้อมูลและเช็คสถานะ ---
+    checkLoginStatus(); // เช็คว่าเคยล็อกอินค้างไว้ไหม
+    getNews();         // ดึงข่าวสาร
+    getWord();         // ดึงคำศัพท์
+    getLeaderboard();  // ดึงทำเนียบคนเก่ง
+    getCategories();   // ดึงหมวดหมู่ (เผื่อไว้สำหรับโหมดฝึกฝน)
   }
 
   void _loadAd() {
@@ -32,9 +36,7 @@ class _ExamModePageState extends State<ExamModePage> {
       size: AdSize.banner,
       listener: BannerAdListener(
         onAdLoaded: (ad) {
-          setState(() {
-            _isLoaded = true;
-          });
+          setState(() { _isLoaded = true; });
         },
         onAdFailedToLoad: (ad, err) {
           ad.dispose();
@@ -45,10 +47,9 @@ class _ExamModePageState extends State<ExamModePage> {
 
   @override
   void dispose() {
-    _bannerAd?.dispose(); // สำคัญ: คืนหน่วยความจำเมื่อออกจากหน้าจอ
+    _bannerAd?.dispose();
     super.dispose();
   }
-  // ----------------------
 
   static const Color brandGold = Color(0xFFB9976C);
   static const Color brandNavy = Color(0xFF2D2F31);
@@ -66,11 +67,7 @@ class _ExamModePageState extends State<ExamModePage> {
         ),
         title: const Text(
           'เลือกโหมดการสอบ',
-          style: TextStyle(
-            fontFamily: 'Kanit',
-            fontWeight: FontWeight.bold,
-            color: brandNavy,
-          ),
+          style: TextStyle(fontFamily: 'Kanit', fontWeight: FontWeight.bold, color: brandNavy),
         ),
         actions: [
           ListenableBuilder(
@@ -129,10 +126,8 @@ class _ExamModePageState extends State<ExamModePage> {
           ],
         ),
       ),
-      
-      // --- วาง Banner ไว้ล่างสุดตรงนี้ครับ ---
       bottomNavigationBar: _isLoaded
-        ? SafeArea( // เพิ่ม SafeArea ครอบไว้ครับ
+        ? SafeArea(
             child: SizedBox(
               height: _bannerAd!.size.height.toDouble(),
               width: _bannerAd!.size.width.toDouble(),
@@ -143,12 +138,8 @@ class _ExamModePageState extends State<ExamModePage> {
     );
   }
 
-  Widget _buildModeCard(BuildContext context,
-      {required String title,
-      required String subtitle,
-      required IconData icon,
-      required Color color,
-      required VoidCallback onTap}) {
+  // --- Widget และ Function เสริมอื่น ๆ (คงเดิมทั้งหมด) ---
+  Widget _buildModeCard(BuildContext context, {required String title, required String subtitle, required IconData icon, required Color color, required VoidCallback onTap}) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(20),
@@ -157,53 +148,20 @@ class _ExamModePageState extends State<ExamModePage> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 15,
-              offset: const Offset(0, 5),
-            )
-          ],
-          border: Border.all(
-            color: color == brandNavy && currentUser != null 
-                ? brandGold.withOpacity(0.5) 
-                : Colors.transparent,
-            width: 2,
-          ),
+          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 15, offset: const Offset(0, 5))],
+          border: Border.all(color: color == brandNavy && currentUser != null ? brandGold.withOpacity(0.5) : Colors.transparent, width: 2),
         ),
         child: Row(
           children: [
-            Container(
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(icon, size: 40, color: color),
-            ),
+            Container(padding: const EdgeInsets.all(15), decoration: BoxDecoration(color: color.withOpacity(0.1), shape: BoxShape.circle), child: Icon(icon, size: 40, color: color)),
             const SizedBox(width: 20),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontFamily: 'Kanit',
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: color,
-                    ),
-                  ),
+                  Text(title, style: TextStyle(fontFamily: 'Kanit', fontSize: 18, fontWeight: FontWeight.bold, color: color)),
                   const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: TextStyle(
-                      fontFamily: 'Kanit',
-                      fontSize: 13,
-                      color: Colors.grey[600],
-                    ),
-                  ),
+                  Text(subtitle, style: TextStyle(fontFamily: 'Kanit', fontSize: 13, color: Colors.grey[600])),
                 ],
               ),
             ),
@@ -214,17 +172,13 @@ class _ExamModePageState extends State<ExamModePage> {
   }
 
   void _showCategoryPicker(BuildContext context) {
-    getCategories();
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) {
         return Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-          ),
+          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
           child: DraggableScrollableSheet(
             initialChildSize: 0.6,
             maxChildSize: 0.9,
@@ -233,21 +187,14 @@ class _ExamModePageState extends State<ExamModePage> {
               return ListenableBuilder(
                 listenable: categoriesChanged,
                 builder: (context, child) {
-                  if (categories.isEmpty) {
-                    return const Center(child: CircularProgressIndicator(color: brandGold));
-                  }
+                  if (categories.isEmpty) return const Center(child: CircularProgressIndicator(color: brandGold));
                   return Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        Container(
-                          width: 40,
-                          height: 5,
-                          decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(10)),
-                        ),
+                        Container(width: 40, height: 5, decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(10))),
                         const SizedBox(height: 20),
-                        const Text('เลือกหมวดหมู่ที่ต้องการฝึก',
-                            style: TextStyle(fontFamily: 'Kanit', fontSize: 18, fontWeight: FontWeight.bold)),
+                        const Text('เลือกหมวดหมู่ที่ต้องการฝึก', style: TextStyle(fontFamily: 'Kanit', fontSize: 18, fontWeight: FontWeight.bold)),
                         const Divider(height: 30),
                         Expanded(
                           child: ListView.builder(
@@ -257,18 +204,13 @@ class _ExamModePageState extends State<ExamModePage> {
                               return Card(
                                 elevation: 0,
                                 margin: const EdgeInsets.only(bottom: 10),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  side: BorderSide(color: Colors.grey[200]!),
-                                ),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: Colors.grey[200]!)),
                                 child: ListTile(
                                   leading: const Icon(Icons.folder_open, color: brandGold),
                                   title: Text(categories[index]['name'], style: const TextStyle(fontFamily: 'Kanit')),
                                   trailing: const Icon(Icons.arrow_forward_ios, size: 14),
                                   onTap: () {
-                                    getTesting(
-                                        mode: 'practice', 
-                                        categoryId: int.parse(categories[index]['id'].toString()));
+                                    getTesting(mode: 'practice', categoryId: int.parse(categories[index]['id'].toString()));
                                     Navigator.pop(context);
                                     context.push('/testing?mode=practice');
                                   },
@@ -290,11 +232,7 @@ class _ExamModePageState extends State<ExamModePage> {
   }
 
   void _showLoading(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const Center(child: CircularProgressIndicator(color: brandGold)),
-    );
+    showDialog(context: context, barrierDismissible: false, builder: (context) => const Center(child: CircularProgressIndicator(color: brandGold)));
   }
 
   void _confirmLogout(BuildContext context) {

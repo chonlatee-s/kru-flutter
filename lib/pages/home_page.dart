@@ -15,28 +15,34 @@ class _HomePageState extends State<HomePage> {
   static const Color brandNavy = Color(0xFF2D2F31);
   static const Color bgColor = Color(0xFFF8F9FA);
 
-
   @override
   void initState() {
     super.initState();
-    getNews();
-    getWord();
-    getLeaderboard(); // ดึงข้อมูลทำเนียบคนเก่ง
+    _initData();
   }
 
+  // ฟังก์ชันเริ่มต้นข้อมูลเพื่อให้ระบบจำการ Login ได้ทันที
+  Future<void> _initData() async {
+    await checkLoginStatus(); // เช็คสถานะการล็อกอินจาก Shared Preferences
+    getNews();
+    getWord();
+    getLeaderboard();
+    
+    // หากมีผู้ใช้ล็อกอินอยู่ ให้ดึงประวัติการสอบมารอไว้เลย
+    if (currentUser != null) {
+      getExamHistory();
+    }
+  }
 
   String formatBestTime(dynamic seconds) {
     if (seconds == null) return '0 วินาที';
-    
-    // แปลงค่าให้เป็น int เผื่อกรณีข้อมูลมาจาก API เป็น String
     int totalSeconds = int.tryParse(seconds.toString()) ?? 0;
     
     if (totalSeconds < 60) {
       return '$totalSeconds วินาที';
     } else {
-      int minutes = totalSeconds ~/ 60; // หารปัดเศษเอาเฉพาะนาที
-      int remainingSeconds = totalSeconds % 60; // เอาเศษที่เหลือเป็นวินาที
-      
+      int minutes = totalSeconds ~/ 60;
+      int remainingSeconds = totalSeconds % 60;
       if (remainingSeconds == 0) {
         return '$minutes นาที';
       } else {
@@ -65,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                   
                   const SizedBox(height: 24),
 
-                  // 2. ส่วนทักทาย
+                  // 2. ส่วนทักทาย (จะแสดงชื่อทันทีหาก Login ค้างไว้)
                   _buildHeaderSection(
                     currentUser != null ? 'ยินดีต้อนรับ, คุณ${currentUser!['name']}' : 'สวัสดีครับ, คุณครู',
                     word.isNotEmpty ? word : 'ขอเป็นกำลังใจให้สอบผ่านนะครับ'
@@ -122,10 +128,7 @@ class _HomePageState extends State<HomePage> {
       centerTitle: false,
       title: Row(
         children: [
-          Image.asset(
-            'assets/img/logo_home.png',
-            width: 30,
-          ),
+          Image.asset('assets/img/logo_home.png', width: 30),
           const SizedBox(width: 12),
           const Text('ครูผู้ช่วย', style: TextStyle(fontFamily: 'Kanit', fontSize: 22, fontWeight: FontWeight.bold, color: brandGold)),
         ],
@@ -141,7 +144,7 @@ class _HomePageState extends State<HomePage> {
               ),
               IconButton(
                 icon: const Icon(Icons.logout_rounded, color: Color.fromARGB(255, 59, 59, 59)),
-                onPressed: () => _confirmLogout(context),
+                onPressed: () => _confirmLogout(context), // ปรับให้เหมือน exam_mode
               ),
             ],
           )
@@ -170,7 +173,6 @@ class _HomePageState extends State<HomePage> {
       width: double.infinity,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        // gradient: const LinearGradient(colors: [brandGold, Color(0xFFDFC39A)]),
         gradient: const LinearGradient(colors: [Color.fromARGB(255, 69, 89, 177), Color.fromARGB(255, 117, 114, 190)]),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [BoxShadow(color: Color.fromARGB(255, 144, 182, 240), blurRadius: 8, offset: const Offset(0, 3))],
@@ -265,10 +267,7 @@ class _HomePageState extends State<HomePage> {
               child: CircleAvatar(backgroundImage: NetworkImage(user['google_profile_pic'] ?? '')),
             ),
             title: Text(user['user_name'], style: const TextStyle(fontFamily: 'Kanit', fontWeight: FontWeight.bold)),
-            subtitle: Text(
-              'เวลาที่ดีที่สุด: ${formatBestTime(user['best_time'])}', 
-              style: const TextStyle(fontSize: 11, fontFamily: 'Kanit'),
-            ),
+            subtitle: Text('เวลาที่ดีที่สุด: ${formatBestTime(user['best_time'])}', style: const TextStyle(fontSize: 11, fontFamily: 'Kanit')),
             trailing: Text('${user['top_score']}', style: const TextStyle(fontFamily: 'Kanit', fontSize: 18, fontWeight: FontWeight.bold, color: brandGold)),
           );
         }).toList(),
@@ -313,14 +312,22 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // ปรับปรุงข้อความ Dialog ให้เหมือนกันกับ ExamModePage
   void _confirmLogout(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('ออกจากระบบ?', style: TextStyle(fontFamily: 'Kanit')),
+        content: const Text('คุณต้องการออกจากระบบ Google ใช่หรือไม่?', style: TextStyle(fontFamily: 'Kanit')),
         actions: [
           TextButton(onPressed: () => Navigator.pop(context), child: const Text('ยกเลิก')),
-          TextButton(onPressed: () { logout(); Navigator.pop(context); }, child: const Text('ยืนยัน', style: TextStyle(color: Colors.red))),
+          TextButton(
+            onPressed: () {
+              logout();
+              Navigator.pop(context);
+            },
+            child: const Text('ยืนยัน', style: TextStyle(color: Colors.red)),
+          ),
         ],
       ),
     );
